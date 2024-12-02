@@ -17,13 +17,14 @@ public class WelcomePage {
         System.out.println("\t  Welcome to the Bank App!\n");
         System.out.println("  Do you have an account with us?\n");
         hasAccount = hasAccount();
+
+        EnterPassword pwdManagement = new EnterPassword();
+
         if (hasAccount) {
             System.out.println("Please enter your account's password to continue");
-            EnterPassword enterPassword = new EnterPassword();
+            pwdManagement.introLogIn(true);
         }else{
-            System.out.println("\tLet's create your account first then...\n\nPlease enter the username you would like to create:\n");
-            System.out.print("Username: ");
-            accountCreation();
+            pwdManagement.accountCreation();
         }
 
     }
@@ -66,9 +67,5 @@ public class WelcomePage {
     }
 
 
-    public void accountCreation(){
 
-        userAnswer = input.next();
-
-    }
 }
