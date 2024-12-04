@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class CheckingToSavingTransfer {
 
@@ -14,18 +15,27 @@ public class CheckingToSavingTransfer {
         String approval = "N";
         double amount = 0;
 
-        while (approval.equalsIgnoreCase("N")) {
+        while(approval.equalsIgnoreCase("N")) {
 
-            do {
-                System.out.print("Enter an amount to transfer: $");
+            while (true) {
                 try {
+                    System.out.print("Enter an amount to transfer: $");
                     amount = scanner.nextDouble();
-                }catch (Exception InputMismatchException) {
-                    System.out.println("Something went wrong. Please try again");
+
+                    if (amount <= 0) {
+                        System.out.println("Please enter a positive amount.");
+                        continue;
+                    }
+
+                    break;
+                } catch (InputMismatchException e) {
+                    scanner.nextLine();
+                    System.out.println("Invalid input. Please enter a valid number.");
                 }
-            }while(Double.isNaN(amount) || Double.isInfinite(amount));
-                System.out.printf("Are you sure you want to transfer $%.2f to your savings account? (Y/N)\n", amount);
-                approval = scanner.next();
+            }
+
+            System.out.printf("Are you sure you want to transfer $%.2f to your savings account? (Y/N)\n", amount);
+            approval = scanner.next();
 
         }
         transfer(amount);
