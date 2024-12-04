@@ -1,14 +1,13 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class WelcomePage {
 
 
     boolean hasAccount;
-   //List<String> userAnswer;
-    String userAnswer;
+    static boolean accountMade = false;
+    static double balance;
     boolean validAnswer = false;
+    String userAnswer;
     Scanner input = new Scanner(System.in);
 
 
@@ -21,10 +20,12 @@ public class WelcomePage {
         EnterPassword pwdManagement = new EnterPassword();
 
         if (hasAccount) {
-            System.out.println("Please enter your account's password to continue");
+            System.out.println("Please enter your account's username and password to continue");
             pwdManagement.introLogIn(true);
         }else{
             pwdManagement.accountCreation();
+            accountMade = true;
+
         }
 
     }
@@ -48,7 +49,7 @@ public class WelcomePage {
                     validAnswer = true;
                     break;
                 case "D":
-                    System.out.println("Thank you for using our app");
+                    System.out.println("Thank you for using our app.");
                     System.exit(0);
                     break;
                 default:

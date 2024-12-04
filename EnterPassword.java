@@ -1,12 +1,14 @@
 import java.util.*;
 
 public class EnterPassword {
+
     private List<User> users = new ArrayList<>();
+
 
     public boolean introLogIn(boolean attempt) {
 
         Scanner scanner = new Scanner(System.in);
-//        new Password();
+//       new Password();
 
         for(int i=0; i<=4; i++){
 
@@ -25,12 +27,12 @@ public class EnterPassword {
 
             if (findUser.isPresent()){
                 System.out.println("Welcome!\n");
-                System.out.println("\t\t How can we help you today? \n");
+                System.out.println("\t\t   How can we help you today? \n");
                 break;
             }else if (i==4){
-                System.out.println("Too many attempts! Please wait... ");
-
+                System.out.println("Too many attempts... Sorry, Shutting down for security");
                 attempt = false;
+                System.exit(0);
             } else {
                 System.out.println("Wrong username/password combination, please try again... ");
             }
@@ -40,7 +42,8 @@ public class EnterPassword {
     }
 
     private void generateDefaultUser() {
-        this.users.add(new User("pepe@gmail.com", "Pepe"));
+        this.users.add(new User("Pepe", "Pepe"));
+        this.users.add(new User("roberto", "manolo"));
     }
 
     public void accountCreation(){
@@ -53,9 +56,13 @@ public class EnterPassword {
         System.out.println("\t\t Please enter your password: ");
         String passwd = scanner.nextLine();
 
-        this.users.add(new User(username, passwd));
+        User newUser = new User(username, passwd);
+        this.users.add(newUser);
+        newUser.setCheckingBalance(500);
 
-        System.out.println("\t\t\t User created!");
+        System.out.println("\t\t\t User created!\n Welcome!\n");
+        System.out.println("\t\tHere are $500 for stating a Checking account with us.\n" +
+                "\t\t\tYou also now have a Savings account ready to use!\n");
     }
 
     public EnterPassword(){

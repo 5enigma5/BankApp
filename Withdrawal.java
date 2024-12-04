@@ -2,39 +2,98 @@ import java.util.Scanner;
 
 public class Withdrawal{
 
+    User newUser = new User("","");
     Scanner scnr = new Scanner(System.in);
-    Withdrawal object;
-
-public Withdrawal(){
-
-
-    System.out.print("Balance: ");
-    double balance=scnr.nextDouble();
+    double balance;
+    double amount;
+    String input;
     String option;
-    do{ System.out.print("Amount: ");
-        double amount= scnr.nextDouble();
-        boolean checkAmountRun =object.checkAmount(amount);
-        amount = object.checkAmount(amount,scnr);
-        object.showNewAmount(checkAmountRun,amount);
-        object.display(balance,amount);
-        balance = object.withdraw(balance,amount);
-        System.out.println("Exit|Withdraw");
-        option=scnr.next();
-    } while(option.equalsIgnoreCase("Withdraw"));
+
+    public Withdrawal(){
+
+
+
+        System.out.println("Would you like to withdrawal from your checking or savings?\n");
+        System.out.println("\t\t\t" +
+                "	Select a choice\n" +
+                        " " +
+        "    Checking      Saving	    Back\n"+
+	    "     : A :         : W :	    : D :\n");
+        
+        input = scnr.next();
+        
+        if(input.equalsIgnoreCase("A") && Character.isLetter(input.charAt(0))){
+
+            System.out.printf("Current Checking Balance: $%.2f\n",User.getCheckingBalance());
+
+            do {
+                System.out.print("\nAmount: $");
+                try {
+                    amount = scnr.nextDouble();
+                }catch (Exception InputMismatchException){
+                    System.out.println("Something went wrong. Please try again.");
+                    break;
+                }
+                boolean checkAmountRun = checkAmount(amount);
+                amount = checkAmount(amount, scnr);
+                showNewAmount(checkAmountRun, amount);
+                displayChecking(User.getCheckingBalance(), amount);
+                balance = withdrawChecking(balance, amount);
+
+                System.out.println("Exit|Withdraw");
+                option = scnr.next();
+            } while (option.equalsIgnoreCase("Withdraw"));
+            
+        } else if (input.equalsIgnoreCase("W") && Character.isLetter(input.charAt(0))) {
+
+            System.out.printf("Current Saving Balance: $%.2f\n",User.getSavingBalance());
+            do {
+                System.out.print("\nAmount: $");
+                double amount = scnr.nextDouble();
+
+                boolean checkAmountRun = checkAmount(amount);
+                amount = checkAmount(amount, scnr);
+                showNewAmount(checkAmountRun, amount);
+                displaySaving(User.getSavingBalance(), amount);
+                balance = withdrawSaving(balance, amount);
+
+                System.out.println("Exit|Withdraw");
+                option = scnr.next();
+            } while (option.equalsIgnoreCase("Withdraw"));
+            
+        } else if (input.equalsIgnoreCase("D") && Character.isLetter(input.charAt(0))) {
+
+            System.out.println("this is back");
+
+        }else{
+
+            System.out.println("Invalid input");
+        }
+
 
 
 }
 
-    public double withdraw(double balance, double amount){
+    public double withdrawChecking(double balance, double amount){
 
-        double newBalance=0;
+        double newBalance;
 
         if (balance<amount){
             newBalance=balance;
         } else {
             newBalance=balance-amount;
         }
+        return newBalance;
+    }
+    public double withdrawSaving(double balance, double amount){
 
+        double newBalance;
+
+        if (balance<amount){
+            newBalance=balance;
+        } else {
+            newBalance=balance-amount;
+        }
         return newBalance;
     }
 
@@ -59,16 +118,29 @@ public Withdrawal(){
     }
 
     public void showNewAmount(boolean checkAmountRun,double amount){
-        if (checkAmountRun) System.out.println("New amount: "+amount);
+        if (checkAmountRun) System.out.printf("New amount: $%.2f\n",amount);
     }
 
-    public void display(double balance, double amount){
+    public void displayChecking(double balance, double amount){
         if (balance<amount){
             System.out.println("Insufficient balance to withdraw");
-            System.out.println("Balance's unchanged: "+withdraw(balance,amount));
+            System.out.println("Balance's unchanged: "+withdrawChecking(balance,amount));
         } else {
-            System.out.println(amount+"$ is withdrew from account.");
-            System.out.println("New balance: "+withdraw(balance,amount)); }
+            System.out.printf("$%.2f is withdrew from checking account.\n",amount);
+            System.out.printf("New balance: $%.2f\n",withdrawChecking(balance,amount));
+            newUser.setCheckingBalance(withdrawChecking(balance,amount));
+        }
+    }
+    public void displaySaving(double balance, double amount){
+        if (balance<amount){
+            System.out.println("Insufficient balance to withdraw");
+            System.out.println("Balance's unchanged: "+withdrawSaving(balance,amount));
+        } else {
+            System.out.printf("$%.2f is withdrew from savings account.\n",amount);
+            System.out.printf("New balance: $%.2f\n",withdrawSaving(balance,amount));
+            newUser.setSavingBalance(withdrawSaving(balance,amount));
+        }
+
     }
 
 
