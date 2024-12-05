@@ -19,18 +19,20 @@ public class WelcomePage {
         hasAccount = hasAccount();
 
         EnterPassword pwdManagement = new EnterPassword();
+        Optional<User> activeUser = Optional.empty();
 
         if (hasAccount) {
             System.out.println("Please enter your account's username and password to continue");
-            Optional<User> activeUser = pwdManagement.introLogIn();
-
+            activeUser = pwdManagement.introLogIn();
             if (activeUser.isPresent()) {
                 this.activeUser = activeUser;
             }
         } else {
-            pwdManagement.accountCreation();
+            activeUser = pwdManagement.accountCreation();
+            this.activeUser = activeUser;
             accountMade = true;
         }
+
     }
 
     public boolean hasAccount() {

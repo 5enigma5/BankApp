@@ -63,10 +63,6 @@ public class ChoiceSelect {
             case 'A':
                 validInput = true;
                 new CheckingToSavingTransfer(this.activeUser);
-               /* if(WelcomePage.accountMade) new CheckingToSavingTransfer(WelcomePage.balance, 0);
-                else {
-                    new CheckingToSavingTransfer(5000, 0);
-                }*/
                 break;
             case 'W':
                 new Withdrawal(this.activeUser);
@@ -77,7 +73,7 @@ public class ChoiceSelect {
                 validInput = true;
                 break;
             case 'S':
-                // Help code
+                Service service = new Service(this.activeUser);
                 validInput = true;
                 break;
             case 'F':

@@ -44,10 +44,10 @@ public class EnterPassword {
         this.users.add(new User("roberto", "manolo"));
     }
 
-    public void accountCreation() {
+    public Optional<User> accountCreation() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\tLet's create your account first then...\n\nPlease enter below information you would like to create:\n");
+        System.out.println("\t\t\tLet's create your account first...\n\n\t   Please register your information below:\n");
         System.out.println("\t\t Please enter your username: ");
         String username = scanner.nextLine();
 
@@ -59,8 +59,9 @@ public class EnterPassword {
         newUser.setCheckingBalance(500);
 
         System.out.println("\t\t\t User created!\n Welcome!\n");
-        System.out.println("\t\tHere are $500 for stating a Checking account with us.\n" +
+        System.out.println("\t\tHere are $500 for starting a Checking account with us.\n" +
                 "\t\t\tYou also now have a Savings account ready to use!\n");
+        return Optional.of(newUser);
     }
 
     public EnterPassword() {

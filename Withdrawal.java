@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Withdrawal{
     private User activeUser;
 
-    User newUser = new User("","");
     Scanner scnr = new Scanner(System.in);
     double balance;
     double amount;
@@ -12,7 +11,7 @@ public class Withdrawal{
 
     public Withdrawal(User activeUser){
 
-
+        this.activeUser = activeUser;
 
         System.out.println("Would you like to withdrawal from your checking or savings?\n");
         System.out.println("\t\t\t" +
@@ -129,7 +128,7 @@ public class Withdrawal{
         } else {
             System.out.printf("$%.2f is withdrew from checking account.\n",amount);
             System.out.printf("New balance: $%.2f\n",withdrawChecking(balance,amount));
-            newUser.setCheckingBalance(withdrawChecking(balance,amount));
+            this.activeUser.setCheckingBalance(withdrawChecking(balance,amount));
         }
     }
     public void displaySaving(double balance, double amount){
@@ -139,7 +138,7 @@ public class Withdrawal{
         } else {
             System.out.printf("$%.2f is withdrew from savings account.\n",amount);
             System.out.printf("New balance: $%.2f\n",withdrawSaving(balance,amount));
-            newUser.setSavingBalance(withdrawSaving(balance,amount));
+            this.activeUser.setSavingBalance(withdrawSaving(balance,amount));
         }
 
     }
