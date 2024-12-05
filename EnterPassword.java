@@ -2,7 +2,7 @@ import java.util.*;
 
 public class EnterPassword {
 
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
 
     public Optional<User> introLogIn() {
@@ -39,11 +39,6 @@ public class EnterPassword {
         return Optional.empty();
     }
 
-    private void generateDefaultUser() {
-        this.users.add(new User("Pepe", "Pepe"));
-        this.users.add(new User("roberto", "manolo"));
-    }
-
     public Optional<User> accountCreation() {
         Scanner scanner = new Scanner(System.in);
 
@@ -64,8 +59,10 @@ public class EnterPassword {
         return Optional.of(newUser);
     }
 
-    public EnterPassword() {
-        generateDefaultUser();
+    public EnterPassword(List<User> users) {
+        this.users = users;
+
+        //        generateDefaultUser();
 
 //        introLogIn(true);
 

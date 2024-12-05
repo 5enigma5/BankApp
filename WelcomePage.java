@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -12,13 +13,13 @@ public class WelcomePage {
     Scanner input = new Scanner(System.in);
 
 
-    public WelcomePage() {
+    public WelcomePage(List<User> users) {
 
         System.out.println("\t  Welcome to the Bank App!\n");
         System.out.println("  Do you have an account with us?\n");
         hasAccount = hasAccount();
 
-        EnterPassword pwdManagement = new EnterPassword();
+        EnterPassword pwdManagement = new EnterPassword(users);
         Optional<User> activeUser = Optional.empty();
 
         if (hasAccount) {
