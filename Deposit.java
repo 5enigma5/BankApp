@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Deposit {
 
 
-    public static double deposit_Checking(double balance) {
+    public static void deposit_Checking(User activeUser) {
 
         Scanner scan = new Scanner(System.in);
         double total = 0;
@@ -20,17 +20,14 @@ public class Deposit {
         approval = scan.next();
 
         if (checkIfApproved(approval)) {
-            total = balance + amount;
+            total = activeUser.getCheckingBalance() + amount;
             System.out.printf("You have successfully deposited $%.2f into your Checking Account\n", amount);
             System.out.printf("Your new balance is $%.2f.%n", total);
-            User newUser = new User("","");
-            newUser.setCheckingBalance(total);
-            return total;
+            activeUser.setCheckingBalance(total);
 
         } else {
             System.out.println("Transaction Cancelled");
             System.out.println("Returning Back to Main Menu");
-            return balance;
         }
     }
 

@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class ChoiceSelect {
 
+    private User activeUser;
+
     byte counter = 0;
     ArrayList<String> userAnswer = new ArrayList<>();
     boolean validInput;
@@ -37,55 +39,54 @@ public class ChoiceSelect {
     }// Ends choiceSelect method
 
 
-//Constructor for practice :)
-    public ChoiceSelect() {
+    //Constructor for practice :)
+    public ChoiceSelect(User activeUser) {
+        this.activeUser = activeUser;
 
+        for (int i = 0; i < 4; i++) {
 
-    for(int i = 0; i < 4 ; i++) {
+            if (choiceSelect() && i < 3) {
+                System.out.println("\n\t\t\tCan we help you with anything else today?\n\t\t\t\t\t  Please choose again.\n");
 
-        if (choiceSelect() && i < 3) {
-            System.out.println("\n\t\t\tCan we help you with anything else today?\n\t\t\t\t\t  Please choose again.\n");
-
-        } else {
-            System.out.println("\t\tFor security reasons you cannot continue\n");
+            } else {
+                System.out.println("\t\tFor security reasons you cannot continue\n");
 
             }
         }
     }
 
 
-
     public void caseChoice() {
 
 
-            switch (userAnswer.get(counter).charAt(0)) {
-                case 'A':
+        switch (userAnswer.get(counter).charAt(0)) {
+            case 'A':
                 validInput = true;
-                new CheckingToSavingTransfer(User.getCheckingBalance(),User.getSavingBalance());
+                new CheckingToSavingTransfer(this.activeUser);
                /* if(WelcomePage.accountMade) new CheckingToSavingTransfer(WelcomePage.balance, 0);
                 else {
                     new CheckingToSavingTransfer(5000, 0);
                 }*/
                 break;
-                    case 'W':
-                        new Withdrawal();
-                        validInput = true;
-                        break;
-                            case 'D':
-                                Deposit.deposit_Checking(User.getCheckingBalance());
-                                validInput = true;
-                                break;
-                                    case 'S':
-                                        // Help code
-                                        validInput = true;
-                                        break;
-                case 'F':
-                    System.out.println("Thank you for using our app.");
-                    System.exit(1);
-                    break;
+            case 'W':
+                new Withdrawal(this.activeUser);
+                validInput = true;
+                break;
+            case 'D':
+                Deposit.deposit_Checking(this.activeUser);
+                validInput = true;
+                break;
+            case 'S':
+                // Help code
+                validInput = true;
+                break;
+            case 'F':
+                System.out.println("Thank you for using our app.");
+                System.exit(1);
+                break;
 
 
-                default:
+            default:
                 System.out.println("\t\tPlease try again\n\n\t(Enter a 'A','W','D','S' or 'F')\n");
 
         }
@@ -95,10 +96,10 @@ public class ChoiceSelect {
 
     public void caseSelect() {
 
-                System.out.println("\t\t\t\t\t    Select a choice\n\n\t Transfer     Withdrawal\tDeposit \t  Help\t\t Exit\n\t  : A :  \t\t: W :\t\t : D :\t\t : S :\t\t : F :\n");
+        System.out.println("\t\t\t\t\t    Select a choice\n\n\t Transfer     Withdrawal\tDeposit \t  Help\t\t Exit\n\t  : A :  \t\t: W :\t\t : D :\t\t : S :\t\t : F :\n");
 
 
-    //this works :)
+        //this works :)
     }
 } //End of class
 

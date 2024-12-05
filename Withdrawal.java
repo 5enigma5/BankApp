@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Withdrawal{
+    private User activeUser;
 
     User newUser = new User("","");
     Scanner scnr = new Scanner(System.in);
@@ -9,7 +10,7 @@ public class Withdrawal{
     String input;
     String option;
 
-    public Withdrawal(){
+    public Withdrawal(User activeUser){
 
 
 
@@ -24,7 +25,7 @@ public class Withdrawal{
         
         if(input.equalsIgnoreCase("A") && Character.isLetter(input.charAt(0))){
 
-            System.out.printf("Current Checking Balance: $%.2f\n",User.getCheckingBalance());
+            System.out.printf("Current Checking Balance: $%.2f\n",this.activeUser.getCheckingBalance());
 
             do {
                 System.out.print("\nAmount: $");
@@ -37,7 +38,7 @@ public class Withdrawal{
                 boolean checkAmountRun = checkAmount(amount);
                 amount = checkAmount(amount, scnr);
                 showNewAmount(checkAmountRun, amount);
-                displayChecking(User.getCheckingBalance(), amount);
+                displayChecking(this.activeUser.getCheckingBalance(), amount);
                 balance = withdrawChecking(balance, amount);
 
                 System.out.println("Exit|Withdraw");
@@ -46,7 +47,7 @@ public class Withdrawal{
             
         } else if (input.equalsIgnoreCase("W") && Character.isLetter(input.charAt(0))) {
 
-            System.out.printf("Current Saving Balance: $%.2f\n",User.getSavingBalance());
+            System.out.printf("Current Saving Balance: $%.2f\n",this.activeUser.getSavingBalance());
             do {
                 System.out.print("\nAmount: $");
                 double amount = scnr.nextDouble();
@@ -54,7 +55,7 @@ public class Withdrawal{
                 boolean checkAmountRun = checkAmount(amount);
                 amount = checkAmount(amount, scnr);
                 showNewAmount(checkAmountRun, amount);
-                displaySaving(User.getSavingBalance(), amount);
+                displaySaving(this.activeUser.getSavingBalance(), amount);
                 balance = withdrawSaving(balance, amount);
 
                 System.out.println("Exit|Withdraw");

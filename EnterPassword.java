@@ -5,12 +5,12 @@ public class EnterPassword {
     private List<User> users = new ArrayList<>();
 
 
-    public boolean introLogIn(boolean attempt) {
+    public Optional<User> introLogIn() {
 
         Scanner scanner = new Scanner(System.in);
 //       new Password();
 
-        for(int i=0; i<=4; i++){
+        for (int i = 0; i <= 4; i++) {
 
             System.out.println("\t\t Please enter your username: ");
             String username = scanner.nextLine();
@@ -24,21 +24,19 @@ public class EnterPassword {
                     .filter(user -> user.getUsername().equals(newUser.getUsername()) && user.getPassword().equals(newUser.getPassword()))
                     .findAny();
 
-
-            if (findUser.isPresent()){
+            if (findUser.isPresent()) {
                 System.out.println("Welcome!\n");
                 System.out.println("\t\t   How can we help you today? \n");
-                break;
-            }else if (i==4){
+                return findUser;
+            } else if (i == 4) {
                 System.out.println("Too many attempts... Sorry, Shutting down for security");
-                attempt = false;
                 System.exit(0);
             } else {
                 System.out.println("Wrong username/password combination, please try again... ");
             }
 
         }
-        return attempt;
+        return Optional.empty();
     }
 
     private void generateDefaultUser() {
@@ -46,7 +44,7 @@ public class EnterPassword {
         this.users.add(new User("roberto", "manolo"));
     }
 
-    public void accountCreation(){
+    public void accountCreation() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\tLet's create your account first then...\n\nPlease enter below information you would like to create:\n");
@@ -65,7 +63,7 @@ public class EnterPassword {
                 "\t\t\tYou also now have a Savings account ready to use!\n");
     }
 
-    public EnterPassword(){
+    public EnterPassword() {
         generateDefaultUser();
 
 //        introLogIn(true);

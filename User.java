@@ -1,8 +1,8 @@
 public class User {
     private String username;
     private String password;
-    private static double checkingBalance;
-    private static double savingBalance;
+    private double checkingBalance;
+    private double savingBalance;
 
 
     public String getUsername() {
@@ -25,35 +25,30 @@ public class User {
     // Balance Getter and Setter
 
 
-    public static double getCheckingBalance() {
+    public void setCheckingBalance(double balanceAmount) {
+        if (balanceAmount >= 0) {
+            checkingBalance = balanceAmount;
+        } else throw new IllegalArgumentException("Balance can't be negative");
+    }
+
+    public void setSavingBalance(double balanceAmount) {
+        if (balanceAmount >= 0) {
+            savingBalance = balanceAmount;
+        } else throw new IllegalArgumentException("Balance can't be negative");
+    }
+
+    public double getCheckingBalance() {
         return checkingBalance;
     }
 
-    public static double getSavingBalance() {
+    public double getSavingBalance() {
         return savingBalance;
     }
-
-
-    public void setCheckingBalance(double balanceAmount) {
-         if (balanceAmount >= 0) {
-            checkingBalance = balanceAmount;
-         }else throw new IllegalArgumentException("Balance cant be negative");
-
-
-    }    public void setSavingBalance(double balanceAmount) {
-         if (balanceAmount >= 0) {
-            savingBalance = balanceAmount;
-         }else throw new IllegalArgumentException("Balance cant be negative");
-
-    }
-
-
-
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        checkingBalance = getCheckingBalance();
-        savingBalance = getSavingBalance();
+        this.checkingBalance = 500;
+        this.savingBalance = 0;
     }
 }

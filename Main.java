@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
 
 
-        new WelcomePage();
-        new ChoiceSelect();
+        WelcomePage welcomePage = new WelcomePage();
+        new ChoiceSelect(welcomePage.activeUser.get());
 
 
     }

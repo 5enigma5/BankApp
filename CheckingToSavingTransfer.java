@@ -2,14 +2,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class CheckingToSavingTransfer {
 
-    double checkingBalance;
-    double savingBalance;
+    private User activeUser;
 
 
-    public CheckingToSavingTransfer(double checkingBalance, double savingBalance){
-
-        this.checkingBalance = checkingBalance;
-        this.savingBalance = savingBalance;
+    public CheckingToSavingTransfer(User activeUser){
+        this.activeUser = activeUser;
 
         Scanner scanner = new Scanner(System.in);
         String approval = "N";
@@ -45,17 +42,14 @@ public class CheckingToSavingTransfer {
 
 
         public void transfer (double amount ){
-        if (amount > User.getCheckingBalance()) {
+        if (amount > this.activeUser.getCheckingBalance()) {
             System.out.println("You do not have enough funds to process this transfer.");
         } else {
-            checkingBalance = User.getCheckingBalance() - amount;
-            savingBalance =User.getSavingBalance() + amount;
+            this.activeUser.setCheckingBalance(this.activeUser.getCheckingBalance() - amount);
+            this.activeUser.setSavingBalance(this.activeUser.getSavingBalance() + amount);
             System.out.println("Successful transfer!");
-            System.out.printf("New checking balance is: $%.2f\n",checkingBalance);
-            System.out.printf("New saving balance is: $%.2f\n",savingBalance);
-            User newUser = new User("","");
-            newUser.setCheckingBalance(checkingBalance);
-            newUser.setSavingBalance(savingBalance);
+            System.out.printf("New checking balance is: $%.2f\n",this.activeUser.getCheckingBalance());
+            System.out.printf("New saving balance is: $%.2f\n",this.activeUser.getSavingBalance());
         }
 
     }
